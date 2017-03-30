@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <Valve className="com.gopivotal.manager.SessionFlushValve" />
+    <Manager className="org.apache.catalina.session.PersistentManager">
+        <Store
+                className="com.gopivotal.manager.redis.RedisStore"
+                host="redis"
+        />
+    </Manager>
+
+</Context>

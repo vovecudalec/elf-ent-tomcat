@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+
+  maground-postgres:
+    build: postgres/
+    container_name: postgres
+    environment:
+      POSTGRES_DB: alfresco
+      POSTGRES_USER: 'alfresco'
+      POSTGRES_PASSWORD: 'alfresco'
+    networks:
+      tomcat_cluster_net:
+        aliases:
+          - pg_alfresco
+          - pg_reporting
+    ports:
+      - "5432"
+
+  tomcat:
+    build: .
+    networks:
+      tomcat_cluster_net:
+        aliases:
+          - tomcat
+    ports:
+      - "8080"
+
+  redis:
+    image: redis
+    networks:
+      tomcat_cluster_net:
+        aliases:
+          - redis
+networks:
+  tomcat_cluster_net:
